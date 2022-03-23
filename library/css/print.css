@@ -1,0 +1,47 @@
+       a:hover, a:active, a:visited, a:link {
+         text-decoration:none;
+         color:black;
+       }
+       .h table td {
+        font: 78%/1.5 arial, helvetica, serif;
+        text-align: left;
+        padding: 0;
+        /*margin: 2em; */
+       }
+	   th {
+	    font: 78%/1.5 arial, helvetica, serif;
+        text-align: left;
+        /*padding: 0; */
+        padding: 0.1em 1em;
+	font-weight:bold;
+        border: 1px solid #999;
+	    }
+       .h td {
+        font: 78%/1.5 arial, helvetica, serif;
+        text-align: left;
+        padding: 0;
+       }
+       .s {
+        font: 78%/1.5 arial, helvetica, serif;
+        text-align: center;
+        padding: 0;
+        border-width:1px; border-style:solid;
+       }
+	   table .class1 {
+		border-bottom: #ffffff 0.1em solid;
+	    /*background-color:#d6e8ff;*/
+        background-color:#ebf3ff;
+        font-weight:bold;
+       }
+	  table {
+       color:black;
+       background-color: white;
+       border-width:1px;
+       text-align: left;
+       padding: 0;
+       width:100%;
+       table-layout: float;
+       border: #d6e8ff 0.1em solid;
+       border-collapse:collapse;
+     }
+

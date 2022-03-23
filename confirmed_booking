@@ -1,0 +1,184 @@
+#!/usr/bin/perl 
+use warnings;
+use strict; 
+use CGI qw/:standard all/;
+#use lib '/home/mangital/public_html/cgi-bin/hotel';
+use hotel;
+use util;
+
+if (!param ('u') || (!param('e')) || (!param('s'))) {
+ print header, start_html;
+  my_redirect("login", "");
+} elsif (param('u') && param('e') && (param('action') eq 'Book')) {
+  print header, main_menu(param('u'), param('e'), param('s'));
+
+  my $result = add_booking(param('f'), param('l'), param('t'), 
+   param('rid'), param('sx'), param('a'), 
+   param('ad'), param('dd'), param('doc_no'), param('amount'), 
+   param('p_type'), param('c'), 'Confirmed');
+
+  if ($result == 1) {
+   my_redirect_UE("confirmed_booking_list", param('u'), param('e'), param('s'));   
+  } else {
+    print $result;
+  }
+  print main_footer;
+
+} elsif (param("u") && param('e') && (param('action') eq 'Add')) {
+  print header, main_menu(param('u'), param('e'), param('s'));
+  print qq`
+      <table border="1" rules="rows" align="left" width="100%"> 
+      <tr style="background-color:silver"><td colspan="4">
+        <h3>Make Confirmed Reservation</h3></td></tr>
+      <form name="myform" action="$cgi_bin/confirmed_booking" method="post">
+     <tr><td>Room </td><td>
+     <select id="rid" name="rid" onchange="fetch_rate();">
+     <!--<select name="rid">-->
+      <option></option>
+  `;
+  my @rc = query_sql("select r.id, r.number, c.name, r.occupancy, r.status 
+    from room r  join room_category c on r.category_id = c.id 
+    where  r.occupancy != 'Occupied' 
+    and r.occupancy != 'Confirmed Booking'");
+  for(my $i = 0; $i < @rc; $i = $i + 5) {
+    print qq`<option value="$rc[$i]">
+    $rc[$i+1] &nbsp; $rc[$i+2] &nbsp; $rc[$i+3] &nbsp; $rc[$i+4]</option>`;
+  }
+  print qq` 
+      </select></td>
+       <td>Room Rate</td><td><input id = "rr" type="text" name="rr"></td></tr>
+     <tr><td>Title</td><td><input type="text" name="t"></td></tr>
+     <tr><td>Firstname</td><td><input type="text" name="f"></td></tr>
+     <tr><td>Lastname</td><td><input type="text" name="l"></td></tr>
+     <tr><td>Phone Number</td><td><input type="text" name="p"></td></tr>
+     <tr><td>Email</td><td><input type="text" name="email"></td></tr>
+     <tr><td>Sex</td><td><select name="sx">
+         <option>Male</option>
+         <option>Female</option>
+      </td></tr>
+     <tr><td>Address</td><td>
+          <textarea rows="5" cols="50" name="a"></textarea></td></tr>
+     <!--<tr><td>Bill To</td><td>Self<input type="radio" name="b" value="self">
+                             Group<input type="radio" name="b" value="group"
+                         </td></tr>
+     -->
+     <tr>
+      <td>Arrival Date</td>
+      <td><input type="text" name="ad">(e.g., 2010-08-03)</td>
+     </tr>
+     <tr>
+      <td>Departure Date</td> 
+      <td><input type="text" name="dd">(e.g., 2010-08-03)</td>
+     </tr>
+
+     <tr>
+      <td>Room Type</td>
+      <td colspan="4">
+       <table cellspacing="0" cellpadding="0" width="100%">
+        <tr style="background-color:silver;">
+         <td>Room Type</td><td>Rate</td><td>Number</td><td>Reservations</td>
+        </tr> 
+    `;
+    @rc = query_sql("select r.id, r.number, rc.name, r.status, rc.rate, 
+     count(r.id) from room r join room_category rc on r.category_id = rc.id 
+     where r.occupancy != 'Occupied' and r.occupancy != 'Confirmed Booking' 
+     group by rc.id");
+    for(my $i = 0; $i < @rc; $i = $i + 6) {
+        print qq`
+          <tr>
+           <td>
+            <input type="checkbox" name="rid$i" value="$rc[$i]">
+             $rc[$i+1] &nbsp; $rc[$i+2] &nbsp; $rc[$i+3] 
+           </td> 
+           <td>$rc[$i+4]</td>
+           <td>$rc[$i+5]</td>
+           <td>
+            <select name="reser$i">
+        `;
+        for (my $x = 1; $x <= $rc[$i+5]; $x++) {
+          print qq`<option>$x</option>`;
+        }
+        print qq`
+            </select>
+           </td>
+          </tr>
+        `;
+      }
+    print qq` 
+       </table>
+      </td>
+     </tr>
+
+     <tr>
+      <td>Source Document No (e.g., Receipt Number)</td> 
+      <td><input type="text" name="doc_no"></td>
+     </tr>
+     <tr>
+      <td>Deposit Amount</td> 
+      <td><input type="text" name="amount"></td>
+     </tr>
+     <tr>
+      <td>Payment Type</td> 
+      <td>Cash <input type="radio" name="p_type" value="Cash"></td>
+      <td>Cheque <input type="radio" name="p_type" value="Cheque"></td>
+      <td>Other <input type="radio" name="p_type" value="Other"></td>
+     </tr>
+     <tr><td>Comment</td><td>
+          <textarea rows="5" cols="50" name="c"></textarea></td></tr>
+     <!--
+     <tr><td>Notification</td><td>
+          <textarea rows="5" cols="50" name="n"></textarea></td></tr>
+     -->
+     <input type="hidden" name="u" value="` . param('u') . qq`">
+     <input type="hidden" name="e" value="` . param('e') . qq`">
+     <input type="hidden" name="s" value="` . param('s') . qq`">
+      <tr><td><input name="action" type="submit" value="Book">
+          <input type="reset">
+      </td></tr>
+     </table>
+  `;
+  print main_footer;
+} elsif (param("u") && param('e') && (param('action') eq 'List')) {
+  print header, main_menu(param('u'), param('e'), param('s'));
+
+  print qq`<table border="1" width="100%" rules="rows">
+    <tr style="background-color:silver"><td colspan="7">
+      <table border="0"><tr><td><h3>Confirmed Booking List</h3></td>
+        <form action="confirmed_booking" method="post">
+        <td><input type="submit" name="action" value="Add"></td>
+        <td><input type="submit" name="action" value="Edit"></td>
+        <td><input type="submit" name="action" value="Print"></td>
+        <td><input type="hidden" name="u" value="` . param('u') . qq`"></td>
+        <td><input type="hidden" name="e" value="` . param('e') . qq`"></td>
+        <td><input type="hidden" name="s" value="` . param('s') . qq`"></td>
+      </tr></table>
+    </td></tr>
+   <tr style="background-color:silver">
+       <td>Room</td>
+       <td>Design.</td>
+       <td>Firstname</td>
+       <td>Lastname</td>
+       <td>Arrival</td>
+       <td>Departure</td>
+    </tr>
+  `;
+    my @guests = query_sql("select b.id, r.number, b.designation, b.firstname,
+       b.lastname, b.arrival_date, b.departure_date from room r 
+         join booking b on r.id = b.room_id 
+         where r.occupancy = 'Confirmed Booking'");
+    for(my $i=0; $i < @guests; $i = $i + 7) {
+      print qq`
+          <tr>
+            <td>$guests[$i]</td>
+            <td>$guests[$i+1]</td>
+            <td>$guests[$i+2]</td>
+            <td>$guests[$i+3]</td>
+            <td>$guests[$i+4]</td>
+            <td>$guests[$i+5]</td>
+            <td>$guests[$i+6]</td>
+          </tr>
+      `;
+    }
+  print "</table>";
+  print main_footer;
+}

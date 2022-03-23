@@ -1,0 +1,41 @@
+  * {
+   font-family: tahoma, sans-serif;
+   line-height: 125%;
+  }
+  html,body {
+   /*background-color: #425073;  */
+   background-color:white;
+   color: black;
+   font-size: 14px;
+  } 
+  .table-style {
+   position:absolute;
+   top:10em;
+   left:25em;
+   color:black;
+   background-color: white;
+   border-width:5px;
+   text-align: left;
+   padding: 0;
+   width:40%;
+   table-layout: auto;
+   border: #d6e8ff 0.1em solid;
+   border-collapse:collapse;
+  }
+  td {
+   text-align:left;
+   /*border: 1px solid #ebf3ff; */
+   border: 1px solid white;
+   padding: 0.1em 1em;
+  }	
+  .signup {
+    color:#000000;
+    text-align:center;
+    font-size:2em;
+    font-weight:bolder;
+   }
+
+  .class1 {
+    border-bottom: #ffffff 0.1em solid;
+    background-color:#ebf3ff;
+  }

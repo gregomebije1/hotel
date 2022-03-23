@@ -1,0 +1,205 @@
+table.subject {
+	font-family:arial;
+	background-color: #CDCDCD;
+	margin:0px 0pt 15px;
+	font-size: 8pt;
+	width: 100%;
+	text-align: left;
+   
+}
+table.subject thead tr th {
+	background-color: #e6EEEE;
+	border: 1px solid #FFF;
+	font-size: 8pt;
+	padding: 4px;
+}
+
+table.subject tbody td table{
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #FFF;
+	vertical-align: top;
+}
+
+table.even {
+        border: 1px solid #666;
+}
+
+th.even {
+        background-color: #fc0;
+        color:#204d89;
+        background:#d6e8ff;;
+        font-weight:bold;
+}
+th.even:hover {
+        background-color: #fc7;
+}
+
+ .a {
+
+    font-size:2em;
+	font-weight:700;
+  }
+  .b {
+    font-size:0.7em;
+	font-weight:800;
+	position:relative;
+	top:2px;
+	left:20px;
+  }
+  .c {
+    font-size:0.8em;
+	position:relative;
+	top:3px;
+	left:10px;
+  }
+  .x {
+   font-size:0.8em;
+	position:relative;
+	top:3px;
+	left:10px;
+  }
+  .d {
+    position:absolute;
+	top:32px;
+	left:298px;
+	border: 1px solid black;
+	width:175px;
+	height:40%;
+  }
+  .e {
+    font-size:1.5em;
+	font-weight:bolder;
+	position:relative;
+	top:30px;
+	left:70px;
+  }
+  .f {
+    font-weight:bold;
+  }
+ 
+ .style4 {font-size: xx-small}
+body { font: 80% arial, helvetica, sans-serif; 
+  margin: 0;
+  background-color:white;
+       
+}
+
+.header { font-size:10pt; 
+	    background-color:#ebf3ff;
+            height: 1.5em;
+	    color:#666666;
+}
+.header a { text-decoration:none; color:#666666; padding:2px 10px 2px 5px; }
+.header a:hover {text-decoration:underline; color:#000000;}
+.header p {display:inline; padding:2px 10px 2px 5px;}
+a { text-decoration:underline; color:#003399; padding:2px 10px 2px 5px; }
+a:hover {text-decoration:underline; color:#000000;}
+
+
+.bar { 
+  background-color:#d6e8ff; 
+  padding:0; margin:0; height: 5px;
+  border-bottom:0.1em solid #003399;
+}
+  
+.navigation { 
+  float:left; 
+  width: 15em; 
+  font-size:8pt; 
+  margin-left:0.5em;
+  background-color:#d6e8ff; 
+  border-right: #d6e8ff solid 1em;
+}
+.navigation ul { padding: 0; margin:0; list-style: none;}
+.navigation ul li { 
+  font:10pt tahoma; color:#204d89; padding:0; margin: 0;
+  padding-left:5px; font-weight:bold; border-top:solid 1px #f2f8ff;
+  border-bottom:solid 1px #d6e8ff;
+}
+.navigation ul li a { 
+  font-weight:normal; font-size:0.8em; color:#003399;
+  text-decoration: none; vertical-align:middle;
+}
+.navigation ul li ul {background-color:#f2f8ff;}
+.navigation a:hover {  color:#000000; text-decoration:underline;}
+
+.content{
+        position:absolute;
+        top:2em;
+        left:13.8em;
+        width: 85%;       
+		border: #d6e8ff 0.1em solid;
+}
+
+.content table tr th {
+  text-align:left;
+  border: 1px solid #999; 
+  padding: 0.1em 1em;
+}
+.content .heading a h3 { 
+  border-bottom: 0.1em solid #83b0ec; 
+}
+.content .title { 
+  color:navy; 
+  font-weight:bold; 
+  font-size:1.2em;
+}
+.content .new { color:green; }
+.content .datetimestamp { float:right; }
+.content p { border: white solid 0.1em;}
+
+.content table {
+  color:black;
+  background-color: white;
+  border-width:1px;
+  text-align: left;
+  padding: 0;
+  width:100%;
+  table-layout: auto;
+  border: #d6e8ff 0.1em solid;
+  border-collapse:collapse;
+}
+.content .class1 {
+  border-bottom: #ffffff 0.1em solid;
+  /*background-color:#d6e8ff;*/
+  background-color:#ebf3ff;
+  font-weight:bold;
+}
+.content .class2 {
+  background-color:silver;
+}
+
+.content .class3 {
+  border-bottom: #ffffff 0.1em solid;
+  background-color:#ebf3ff;
+  text-align:center; 
+  font-size:2em; 
+  font-weight:normal;
+}
+.container { position: relative; width: 100%; }
+.content .t {
+   color:black;
+   background-color: white;
+   border-width:1px;
+   text-align: left;
+   padding: 0;
+   /*width:50%;*/
+   table-layout: float;
+   border: #d6e8ff 0.1em solid;
+   border-collapse:collapse;
+}
+.content .style1 { 
+  float:right;
+}
+.content .style2 {
+  text-align:left;
+  border: 1px solid #ebf3ff;; 
+  padding: 0.1em 1em;
+}
+.sstyle1 { display:inline; border-left:solid 15em #ebf3ff; font-size:2em;
+  font-weight:normal;}
+.sstyle2 { display:inline; border-left:solid 15em #ebf3ff;}
+.style3 { text-align:center; }
+.style4 {display:inline;}
+.message {background-color:orange;}
